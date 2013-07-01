@@ -1,6 +1,6 @@
-$(document).ready(function(){
+$(document).ready(function() {
   //Initial Forum page
-  $.cookie("page", 0);
+  $.cookie("page-forum", 0);
 
   // Load forum
   loadforum();
@@ -9,26 +9,26 @@ $(document).ready(function(){
 
   function updateButtons()
   {
-    alert($.cookie("page"));
+    alert($.cookie("page-forum"));
     // Button prev forum
     $("#forum-prev").click(function() {
-      var page = parseInt($.cookie("page"));
+      var page = parseInt($.cookie("page-forum"));
       page -= 1;
-      $.cookie("page", page);
+      $.cookie("page-forum", page);
       loadforum();
       updateButtons();
     });
 
     // Button next forum
     $("#forum-next").click(function() {
-      var page = parseInt($.cookie("page"));
+      var page = parseInt($.cookie("page-forum"));
       page += 1;
-      $.cookie("page", page);
+      $.cookie("page-forum", page);
       loadforum();
       updateButtons();
     });
     // Disable buttons
-    if($.cookie("page") == 0)
+    if($.cookie("page-forum") === 0)
     {
       $("#forum-prev").removeClass("active");
       $("#forum-prev").addClass("disabled");
@@ -40,7 +40,7 @@ $(document).ready(function(){
       $("#forum-prev").addClass("active");
       $("#forum-prev").bind("click");
     }
-    if($.cookie("page") >= parseInt($.cookie("forum-count"))-1)
+    if($.cookie("page-forum") >= parseInt($.cookie("forum-count"))-1)
     {
       $("#forum-next").removeClass("active");
       $("#forum-next").addClass("disabled");
@@ -102,7 +102,7 @@ $(document).ready(function(){
           $("#form-forum-error").visible();
           var redirect = function() {
             window.location = "http://localhost:8888/forum/";
-          }
+          };
           setTimeout(redirect, 1500);
         }
       },"json");
@@ -177,7 +177,7 @@ $(document).ready(function(){
           $("#form-forum-comment-error").visible();
           var redirect = function() {
             window.location = "http://localhost:8888/forum/";
-          }
+          };
           setTimeout(redirect, 1500);
         }
       },"json");
@@ -187,7 +187,7 @@ $(document).ready(function(){
   // Load forum
   function loadforum()
   {
-    var page = {page: $.cookie("page")};
+    var page = {page: $.cookie("page-forum")};
     var url = "http://"+window.location.hostname+":8888/get.forum";
     $.get(url, page, function(data){
       $("#forum").html("");
@@ -277,12 +277,12 @@ $(document).ready(function(){
     return this.each(function() {
       $(this).css("visibility", "hidden");
     });
-  }
+  };
 
   $.fn.visible = function()
   {
     return this.each(function() {
       $(this).css("visibility", "visible");
     });
-  }
+  };
 });

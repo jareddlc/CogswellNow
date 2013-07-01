@@ -1,12 +1,9 @@
 $(document).ready(function(){
-  var clientId = '182609675136.apps.googleusercontent.com';
   var apiKey = 'AIzaSyAav7qkljVCBY9lA0Gjua1x49rpgEo6udg';
-  var scopes = 'https://www.googleapis.com/auth/calendar';
-
-  var url = 'https://www.googleapis.com/calendar/v3/calendars/cogswellasb%40gmail.com/events?sortorder=descending&key=AIzaSyAav7qkljVCBY9lA0Gjua1x49rpgEo6udg';
-  /*$.get(url, function(data){
+  var url = 'https://www.googleapis.com/calendar/v3/calendars/cogswellasb%40gmail.com/events?sortorder=descending&key='+apiKey;
+  $.get(url, function(data){
     console.log(data);
-  },"json");*/
+  },"json");
 });
 
 /*

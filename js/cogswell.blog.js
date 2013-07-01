@@ -1,6 +1,6 @@
 $(document).ready(function(){
   //Initial blog page
-  $.cookie("page", 0);
+  $.cookie("page-blog", 0);
 
   // Load blog
   loadBlog();
@@ -9,25 +9,27 @@ $(document).ready(function(){
 
   function updateButtons()
   {
+    console.log(parseInt($.cookie("blog-count"))-1);
+    console.log($.cookie("page-blog"));
     // Button prev blog
     $("#blog-prev").click(function() {
-      var page = parseInt($.cookie("page"));
+      var page = parseInt($.cookie("page-blog"));
       page -= 1;
-      $.cookie("page", page);
+      $.cookie("page-blog", page);
       loadBlog();
       updateButtons();
     });
 
     // Button next blog
     $("#blog-next").click(function() {
-      var page = parseInt($.cookie("page"));
+      var page = parseInt($.cookie("page-blog"));
       page += 1;
-      $.cookie("page", page);
+      $.cookie("page-blog", page);
       loadBlog();
       updateButtons();
     });
     // Disable buttons
-    if($.cookie("page") == 0)
+    if($.cookie("page-blog") == 0)
     {
       $("#blog-prev").removeClass("active");
       $("#blog-prev").addClass("disabled");
@@ -39,7 +41,7 @@ $(document).ready(function(){
       $("#blog-prev").addClass("active");
       $("#blog-prev").bind("click");
     }
-    if($.cookie("page") >= parseInt($.cookie("blog-count"))-1)
+    if($.cookie("page-blog") >= parseInt($.cookie("blog-count"))-1)
     {
       $("#blog-next").removeClass("active");
       $("#blog-next").addClass("disabled");
@@ -56,7 +58,7 @@ $(document).ready(function(){
   // Load blog
   function loadBlog()
   {
-    var page = {page: $.cookie("page")};
+    var page = {page: $.cookie("page-blog")};
     var url = "http://"+window.location.hostname+":8888/get.blog";
     $.get(url, page, function(data){
       $("#blog").html("");
