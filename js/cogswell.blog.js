@@ -9,8 +9,6 @@ $(document).ready(function(){
 
   function updateButtons()
   {
-    console.log(parseInt($.cookie("blog-count"))-1);
-    console.log($.cookie("page-blog"));
     // Button prev blog
     $("#blog-prev").click(function() {
       var page = parseInt($.cookie("page-blog"));
