@@ -48,7 +48,7 @@ $(document).ready(function(){
   {
 
     var date = new Date();
-    var minutes = 60;
+    var minutes = 120;
     date.setTime(date.getTime()+(minutes * 60 * 1000));
 
     $.cookie("login", '1', {expires: date, path: '/'});

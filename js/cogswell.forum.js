@@ -80,6 +80,13 @@ $(document).ready(function() {
       $("#form-forum-error").append("Body");
     }
 
+    // Check to see if user is logged in
+    if($.cookie("login") == 0 || !($.cookie("first")) || !($.cookie("last")))
+    {
+      error += 1;
+      $("#form-forum-error").html("<B>You must be logged-in in order to post");
+    }
+
     // If there is an error
     if(error > 0)
     {
