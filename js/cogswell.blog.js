@@ -7,49 +7,53 @@ $(document).ready(function(){
   loadBlogCount();
   updateButtons();
 
-  function updateButtons()
-  {
-    // Button prev blog
-    $("#blog-prev").click(function() {
-      var page = parseInt($.cookie("page-blog"));
+  // Button prev blog
+  $("#blog-prev").click(function() {
+    var page = parseInt($.cookie("page-blog"));
+    if(page != 0)
+    {
       page -= 1;
       $.cookie("page-blog", page);
       loadBlog();
-      updateButtons();
-    });
+    }
+    updateButtons();
+  });
 
-    // Button next blog
-    $("#blog-next").click(function() {
-      var page = parseInt($.cookie("page-blog"));
+  // Button next blog
+  $("#blog-next").click(function() {
+    var page = parseInt($.cookie("page-blog"));
+    var count = parseInt($.cookie("blog-count"));
+    if((page+1)*10 < count)
+    {
       page += 1;
       $.cookie("page-blog", page);
       loadBlog();
-      updateButtons();
-    });
+    }
+    updateButtons();
+  });
+
+  function updateButtons()
+  {
     // Disable buttons
     if($.cookie("page-blog") == 0)
     {
       $("#blog-prev").removeClass("active");
       $("#blog-prev").addClass("disabled");
-      $("#blog-prev").unbind("click");
     }
     else
     {
       $("#blog-prev").removeClass("disabled");
       $("#blog-prev").addClass("active");
-      $("#blog-prev").bind("click");
     }
-    if($.cookie("page-blog") >= parseInt($.cookie("blog-count"))-1)
+    if(($.cookie("page-blog")+1)*10 >= parseInt($.cookie("blog-count")))
     {
       $("#blog-next").removeClass("active");
       $("#blog-next").addClass("disabled");
-      $("#blog-next").unbind("click");
     }
     else
     {
       $("#blog-next").removeClass("disabled");
       $("#blog-next").addClass("active");
-      $("#blog-next").bind("click");
     }
   }
 

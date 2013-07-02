@@ -193,7 +193,7 @@ function getBlogCount(req, res)
 
 function getForum(req, res)
 {
-  var pageLimit = 2;
+  var pageLimit = 10;
   var page = req.query.page;
   
   Forum.find().sort({$natural: -1}).skip(page*pageLimit).limit(pageLimit).exec(function (err, results) {

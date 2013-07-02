@@ -1,10 +1,10 @@
 $(document).ready(function(){
   var apiKey = 'AIzaSyAav7qkljVCBY9lA0Gjua1x49rpgEo6udg';
-  var url = 'https://www.googleapis.com/calendar/v3/calendars/cogswellasb%40gmail.com/events?key='+apiKey;
+  var today = new Date();
+  var url = 'https://www.googleapis.com/calendar/v3/calendars/cogswellasb%40gmail.com/events?orderBy=startTime&singleEvents=true&timeMin='+today.toISOString()+'&key='+apiKey;
   $.get(url, function(data){
     for(var i = 0 ; i < 10;i++)
     {
-      console.log(i);
       $("#calendar-div ul").append(buildCalendarEntry(data.items[i]));
     }
   },"json");

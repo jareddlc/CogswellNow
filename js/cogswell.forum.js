@@ -7,50 +7,53 @@ $(document).ready(function() {
   loadForumCount();
   updateButtons();
 
-  function updateButtons()
-  {
-    alert($.cookie("page-forum"));
-    // Button prev forum
-    $("#forum-prev").click(function() {
-      var page = parseInt($.cookie("page-forum"));
+  // Button prev forum
+  $("#forum-prev").click(function() {
+    var page = parseInt($.cookie("page-forum"));
+    if(page != 0)
+    {
       page -= 1;
       $.cookie("page-forum", page);
       loadforum();
-      updateButtons();
-    });
+    }    
+    updateButtons();
+  });
 
-    // Button next forum
-    $("#forum-next").click(function() {
-      var page = parseInt($.cookie("page-forum"));
+  // Button next forum
+  $("#forum-next").click(function() {
+    var page = parseInt($.cookie("page-forum"));
+    var count = parseInt($.cookie("forum-count"));
+    if((page+1)*10 < count)
+    {
       page += 1;
       $.cookie("page-forum", page);
       loadforum();
-      updateButtons();
-    });
+    }
+    updateButtons();
+  });
+
+  function updateButtons()
+  {
     // Disable buttons
-    if($.cookie("page-forum") === 0)
+    if($.cookie("page-forum") == 0)
     {
       $("#forum-prev").removeClass("active");
       $("#forum-prev").addClass("disabled");
-      $("#forum-prev").unbind("click");
     }
     else
     {
       $("#forum-prev").removeClass("disabled");
       $("#forum-prev").addClass("active");
-      $("#forum-prev").bind("click");
     }
-    if($.cookie("page-forum") >= parseInt($.cookie("forum-count"))-1)
+    if(($.cookie("page-forum")+1)*10 >= parseInt($.cookie("forum-count")))
     {
       $("#forum-next").removeClass("active");
       $("#forum-next").addClass("disabled");
-      $("#forum-next").unbind("click");
     }
     else
     {
       $("#forum-next").removeClass("disabled");
       $("#forum-next").addClass("active");
-      $("#forum-next").bind("click");
     }
   }
 
