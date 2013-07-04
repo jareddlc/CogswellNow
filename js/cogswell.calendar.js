@@ -16,18 +16,8 @@ $(document).ready(function(){
 
   function buildCalendarEntry(data)
   {
-    /*data.created
-    data.description
-    data.end
-    data.htmlLink
-    data.location
-    data.start
-    data.updated
-    */
     var info = buildInfo(data);
-    //var entry = '<li><a href="'+data.htmlLink+'" data-toggle="tooltip" title="'+info+'" target="_blank">• '+data.summary+'</a></li>';
     var entry = '<li><a href="'+data.htmlLink+'" data-toggle="tooltip" title="'+info+'" target="_blank"><i class="icon-calendar"></i>'+data.summary+'</a></li>';
-    
     return entry;
   }
 

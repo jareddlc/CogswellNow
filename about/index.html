@@ -4,7 +4,7 @@
   <!-- Title Stuff -->
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
   <link rel="icon" type="image/png" href="favicon.ico">
-  <title>Cogswell Now - Forum</title>
+  <title>Cogswell Now - About</title>
   
   <!-- CSS Includes -->
   <link href="../css/bootstrap.css" rel="stylesheet">
@@ -14,7 +14,6 @@
   <script src="../js/jquery.cookie.js"></script>
   <script src="../js/bootstrap.js"></script>
   <script src="../js/cogswell.navbar.js"></script>
-  <script src="../js/cogswell.forum.js"></script>
 
   <!-- CSS -->
   <style>
@@ -92,73 +91,34 @@
       <!-- Main -->
       <div class="span10">
         <div class="hero-unit" style="min-height:250px;">
-          <div class="btn-group pull-right">
-          <a class="btn btn-primary" href="#forum-modal-post" role="button" data-toggle="modal"><i class="icon-plus icon-white"></i> post</a>
-          </div>
-          <!-- Forum -->
-            <div id="forum"><center>Loading forum...</center></div>
-            <!-- Forum pagination -->
-            <ul class="pager">
-              <li class="previous" id="forum-prev">
-                <a href="#forum-top">Prev</a>
-              </li>
-              <li class="next" id="forum-next">
-                <a href="#forum-top">Next</a>
-              </li>
-            </ul>
-          <!-- Modal -->
-          <div id="forum-modal-post" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="forum-modal-label" aria-hidden="true">
-            <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="forum-modal-label">Add a forum post</h3>
+          <h1>Cogswell Now:</h1>
+          <br>
+          <div class="row-fluid">
+            <div class="span4">
+              <img src="jared.png">
             </div>
-            <div class="modal-body">
-              <form class="form-horizontal" action="javascript:void(0);" id="form-forum-post">
-                <label><b>Title</b></label>
-                <input type="text" class="input-xlarge" id="form-forum-title" name="form-forum-title" placeholder="Title">
-                <label><b>Body</b></label>
-                <textarea rows="10" class="input-xlarge" id="form-forum-body" name="form-forum-body" placeholder="Body"></textarea>
-                <label><b>Type</b></label>
-                <select id="form-forum-tag" class="input-xlarge" name="form-forum-type">
-                  <option>Discussion</option>
-                  <option>Academic help</option>
-                  <option>Lost & found</option>
-                  <option>Help wanted</option>
-                  <option>Selling</option>
-                  <option>Event</option>
-                </select>
-              </form>
-              <!-- Hidden DIV -->
-              <div class="alert alert-error" style="visibility: hidden;" id="form-forum-error">
-                <B>Error!</B> please fix the following: 
-              </div>
+            <div class="span6">
+              <p>This website was created by Jared De La Cruz as a senior project. Technologies used:</p>
+              <table class="table table-bordered table-hover" style="height: 100%">
+                <tr>
+                  <td style="vertical-align: middle"><h3>Node.js:</h3> Webserver and server side API</td>
+                  <td><img src="nodejs.png"></td>
+                </tr>
+                <tr>
+                  <td style="vertical-align: middle"><h3>MongoDB:</h3> Database</td>
+                  <td><img src="mongodb.png"></td>
+                </tr>
+                <tr>
+                  <td style="vertical-align: middle"><h3>Bootstrap:</h3> UI framwork</td>
+                  <td><img src="bootstrap.png"></td>
+                </tr>
+                <tr>
+                  <td style="vertical-align: middle"><h3>jQuery:</h3> Client side Framework</td>
+                  <td><img src="jquery.png"></td>
+                </tr>
+              </table>
             </div>
-            <div class="modal-footer">
-              <button class="btn btn-primary" aria-hidden="true" id="btn-forum-submit">Submit</button>
-            </div>
-          </div>
-
-          <div id="forum-modal-comment" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="forum-modal-comment-label" aria-hidden="true">
-            <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="forum-modal-comment-label">Comment: </h3>
-            </div>
-            <div class="modal-body">
-              <form class="form-horizontal" action="javascript:void(0);" id="form-forum-comment">
-                <label><b>Body</b></label>
-                <textarea rows="10" class="input-xlarge" id="form-forum-comment-body" name="form-forum-comment-body" placeholder="Body"></textarea>
-                <input type="hidden" name="form-forum-comment-title" id="form-forum-comment-title" value="">
-                <input type="hidden" name="form-forum-comment-id" id="form-forum-comment-id" value="">
-              </form>
-              <!-- Hidden DIV -->
-              <div class="alert alert-error" style="visibility: hidden;" id="form-forum-comment-error">
-                <B>Error!</B> please fix the following: 
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button class="btn btn-primary" aria-hidden="true" id="btn-forum-comment">Submit</button>
-            </div>
-          </div>
+        </div>
 
         </div>
       </div>

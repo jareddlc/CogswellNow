@@ -43,7 +43,7 @@
           <!-- Home -->
           <ul class="nav">
             <li><a href="http://localhost:8888/">Home</a></li>
-            <li style="display: none;" id=""><a href="#" id="btn-about">Stuff</a></li>
+            <li></li>
           </ul>
           <!-- Sign in/register -->
           <form action="javascript:void(0);" class="navbar-form pull-right" id="form-signin">
@@ -52,12 +52,13 @@
             <button type="submit" class="btn btn-primary" id="btn-signin">Sign in</button>
             <a href="http://localhost:8888/register/" type="submit" class="btn" id="btn-register">Register</a>            
           </form>
-          <!-- Settings -->
+          <!-- Settings drop down-->
           <ul class="nav pull-right" style="display: none;" id="nav-settings">
             <li class="dropdown">
               <a data-toggle="dropdown" class="dropdown-toggle" href="#" id="nav-user">Username <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="http://localhost:8888/account/" id="nav-account">Account Settings</a></li>
+                <li><a href="http://localhost:8888/forum/" id="nav-account">Forum</a></li>
                 <li><a href="http://localhost:8888/blog-post/" id="nav-blog" style="display: none;">Blog</a></li>
                 <li class="divider"></li>
                 <li><a href="#" id="btn-logout">Logout</a></li>
@@ -74,15 +75,16 @@
     <div class="row-fluid">
       <!-- Sidebar -->
       <div class="span2">
+        <!-- Menu -->
         <div class="well sidebar-nav">
           <ul class="nav nav-list">
             <li class="nav-header">Menu</li>
             <li><a href="http://localhost:8888/"><i class="icon-home"></i> Home</a></li>
+            <li><a href="http://localhost:8888/forum/"><i class="icon-th-list"></i> Forum</a></li>
             <li><a href="https://email.cogswell.edu" target="_blank"><i class="icon-envelope"></i> Cogswell Email</a></li>
-            <li><a href="https://ecams.cogswell.edu/student/" target="_blank"><i class="icon-briefcase"></i> Cogswell Portal</a></li>
+            <li><a href="https://ecams.cogswell.edu/student/" target="_blank"><i class="icon-briefcase"></i> Cogswell Portal</a></li>      
             <li class="nav-header">Sites</li>
-            <li><a href="#">Engineering Club</a></li>
-            <li><a href="#">Audio Production</a></li>
+            <li><a href="http://localhost:8888/directory/"><i class="icon-folder-open"></i> Directory</a></li>
           </ul>
         </div>
       </div>
@@ -155,7 +157,7 @@
     <!-- Footer -->
     <footer>
     <hr>
-    <p>Cogswell Now | 2013</p>
+    <p><a href="http://localhost:8888/about/">Cogswell Now</a> | 2013</p>
     </footer>
   </div>
 </body>

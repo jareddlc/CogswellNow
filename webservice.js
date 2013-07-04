@@ -2,15 +2,6 @@
 * Author: Jared De La Cruz 
 */
 
-/* API TODO
-* GET all users
-* GET all post(paginate)
-* GET user created/last login time
-* POST post
-* POST account settings
-* Unified calendar
-*/
-
 //db.users.update({email: 'jdelacruz@cogswell.edu'}, {$set: { type: 'admin'}})
 
 

@@ -3,7 +3,6 @@
 <head>
   <!-- Title Stuff -->
   <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="../favicon.ico">
   <title>Cogswell Now -  Post a blog</title>
   
@@ -44,7 +43,7 @@
           <!-- Home -->
           <ul class="nav">
             <li><a href="http://localhost:8888/">Home</a></li>
-            <li style="display: none;" id=""><a href="#" id="btn-about">Stuff</a></li>
+            <li></li>
           </ul>
           <!-- Sign in/register -->
           <form action="javascript:void(0);" class="navbar-form pull-right" id="form-signin">
@@ -53,12 +52,13 @@
             <button type="submit" class="btn btn-primary" id="btn-signin">Sign in</button>
             <a href="http://localhost:8888/register/" type="submit" class="btn" id="btn-register">Register</a>            
           </form>
-          <!-- Settings -->
+          <!-- Settings drop down-->
           <ul class="nav pull-right" style="display: none;" id="nav-settings">
             <li class="dropdown">
               <a data-toggle="dropdown" class="dropdown-toggle" href="#" id="nav-user">Username <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="http://localhost:8888/account/" id="nav-account">Account Settings</a></li>
+                <li><a href="http://localhost:8888/forum/" id="nav-account">Forum</a></li>
                 <li><a href="http://localhost:8888/blog-post/" id="nav-blog" style="display: none;">Blog</a></li>
                 <li class="divider"></li>
                 <li><a href="#" id="btn-logout">Logout</a></li>
@@ -139,9 +139,10 @@
         <B>Error!</B> Please fix the following:<div id="alert-error"></div>
       </div>
       </div>
+      <!-- Footer -->
       <footer>
       <hr>
-      <p>Cogswell Now | 2013</p>
+      <p><a href="http://localhost:8888/about/">Cogswell Now</a> | 2013</p>
       </footer>
   </div>  
 </body>
