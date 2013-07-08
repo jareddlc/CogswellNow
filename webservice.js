@@ -2,9 +2,6 @@
 * Author: Jared De La Cruz 
 */
 
-//db.users.update({email: 'jdelacruz@cogswell.edu'}, {$set: { type: 'admin'}})
-
-
 //------------------------------Setup
 //---MongoDB
 console.log('Initializing MongoDB...');
@@ -34,7 +31,7 @@ var blogSchema = mongoose.Schema({
   author: {type: String, required: true},
   body:   {type: String, required: true},
   owner:  {type: String, required: true},
-  comments: [{author: String, body: String, date: Date}],
+  comments: [{owner: String, author: String, body: String, date: Date}],
   date: {type: Date, default: Date.now},
   votes: {type: String},
   type: {type: String},
@@ -47,7 +44,7 @@ var forumSchema = mongoose.Schema({
   author: {type: String, required: true},
   body:   {type: String, required: true},
   owner:  {type: String, required: true},
-  comments: [{author: String, body: String, date: Date}],
+  comments: [{owner: String, author: String, body: String, date: Date}],
   date: {type: Date, default: Date.now},
   votes: {type: String},
   type: {type: String},
@@ -130,6 +127,10 @@ app.post('/post.forum.post', function (req, res, next){
 app.post('/post.forum.comment', function (req, res, next){
   console.log('Request to: '+req.path+' from: '+req.ip);
   postForumComment(req, res);
+});
+app.post('/del.forum.post', function (req, res, next){
+  console.log('Request to: '+req.path+' from: '+req.ip);
+  delForumPost(req, res);
 });
 app.post('/post.account', function (req, res, next){
   console.log('Request to: '+req.path+' from: '+req.ip);
@@ -334,7 +335,7 @@ function postLogin(req, res)
       var hash = createHash();
       var response = {response: "success"};
       response.email = results.email;
-      response.user = hash.update(results.email).digest("hex");
+      response.owner = hash.update(results.email).digest("hex");
       response.first = results.first;
       response.last = results.last;
       response.type = results.type;
@@ -355,6 +356,7 @@ function postBlogPost(req, res)
     title:    req.body['form-blog-title'],
     author:   req.body['form-blog-author'],
     body:     req.body['form-blog-body'],
+    owner:    req.body['form-blog-owner'],
     date:     datetime,
     tags:     req.body['form-blog-tags'],
     type:     req.body['form-blog-type']
@@ -379,12 +381,14 @@ function postForumPost(req, res)
     title:    req.body['form-forum-title'],
     author:   req.body['form-forum-author'],
     body:     req.body['form-forum-body'],
+    owner:     req.body['form-forum-owner'],
     date:     datetime,
     type:     req.body['form-forum-type']
   }, function (err, results) {
     if(err)
     {
       res.json(200, {response: "failure"});
+      console.log(err);
     }
     else
     {
@@ -402,6 +406,7 @@ function postForumComment(req, res)
   },{$push: {comments: {
         author: req.body['form-forum-comment-author'],
         body: req.body['form-forum-comment-body'],
+        owner: req.body['form-forum-comment-owner'],
         date: datetime
       }
     }
@@ -418,3 +423,44 @@ function postForumComment(req, res)
     }
   });
 }
+
+function delForumPost(req, res)
+{
+  Forum.findOne({
+    title: req.body['form-forum-delete-title'],
+    owner: req.body['form-forum-delete-owner'],
+  }, function (err, results){
+    if(err)
+    {
+      res.json(200, {response: "failure"});
+      console.log(err);
+    }
+    else
+    {
+      res.json(200, {response: "success"});
+      console.log("Removing post: "+results.title);
+      results.remove();
+    }
+  });
+}
+
+//db.users.update({email: 'jdelacruz@cogswell.edu'}, {$set: { type: 'admin'}})
+
+/*
+BLOG:
+Cogswell Now
+
+Welcome to Cogswell Now!
+
+Cogswell Now is a site where students can post and have access to student news, events, and forum. 
+
+Blog: The blog is a place where the latest news is posted. ASB notices, club notices and events are updated on the blog. If you are a club leader you are allowed to post directly to the student blog.
+Forum: The forum is a place where students can post anything from discussions, academic help, help wanted, even things for sale!
+
+Have fun!
+
+FORUM:
+Welcome to the forum!
+
+This is the student forum, where any student can post information with the option to add tags!
+*/

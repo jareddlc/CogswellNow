@@ -29,7 +29,7 @@ $(document).ready(function(){
   // Button log out
   $("#btn-logout").click(function() {
     delCookies();
-    window.location = "http://localhost:8888/";
+    //window.location = "http://localhost:8888/";
   });
 
   // Enables navbar features
@@ -54,7 +54,7 @@ $(document).ready(function(){
     $.cookie("login", '1', {expires: date, path: '/'});
     $.cookie("first", data.first, {expires: date, path: '/'});
     $.cookie("last", data.last, {expires: date, path: '/'});
-    $.cookie("user", data.user, {expires: date, path: '/'});
+    $.cookie("owner", data.owner, {expires: date, path: '/'});
     $.cookie("type", data.type, {expires: date, path: '/'});
     $.cookie("email", data.email, {expires: date, path: '/'});
     $.cookie("program", data.program, {expires: date, path: '/'});
@@ -66,14 +66,15 @@ $(document).ready(function(){
     var minutes = 60;
     date.setTime(date.getTime()+(minutes * 60 * 1000));
 
-    $.cookie("login", '0', { expires: date, path: '/' });
-    $.removeCookie("login");
     $.removeCookie("first");
     $.removeCookie("last");
-    $.removeCookie("user");
+    $.removeCookie("owner");
     $.removeCookie("type");
     $.removeCookie("email");
     $.removeCookie("program");
+    $.cookie("login", '0', { expires: date, path: '/' });
+    $.removeCookie("login");
+    window.location = "http://localhost:8888/";
   }
 
   // Creates JSON array

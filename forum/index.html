@@ -160,6 +160,25 @@
             </div>
           </div>
 
+          <div id="forum-modal-delete" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="forum-modal-delete-label" aria-hidden="true">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="forum-modal-delete-label">Post: </h3>
+            </div>
+            <div class="modal-body">
+              Are you sure you want to delete the post?
+              <form class="form-horizontal" action="javascript:void(0);" id="form-forum-delete">
+                <input type="hidden" name="form-forum-delete-title" id="form-forum-delete-title" value="">
+                <input type="hidden" name="form-forum-delete-owner" id="form-forum-delete-owner" value="">
+              </form>
+              <!-- Hidden DIV -->
+              <div class="alert alert-error" style="visibility: hidden;" id="form-forum-delete-error"></div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" aria-hidden="true" id="btn-forum-del">Submit</button>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

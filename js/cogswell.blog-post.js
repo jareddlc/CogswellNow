@@ -5,6 +5,7 @@ $(document).ready(function(){
     var values = $('input:checkbox:checked.form-blog-checkbox').map(function(){return this.value;}).get();
     payload['form-blog-tags'] = values;
     payload['form-blog-author'] = $.cookie("first")+" "+$.cookie("last");
+    payload['form-blog-owner'] = $.cookie("owner");
     var error = 0;
 
     // Clear the error alert

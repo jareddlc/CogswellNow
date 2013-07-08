@@ -6382,6 +6382,12 @@ button.close {
   font-size: 12px;
   line-height: 20px;
 }
+.forum-owner
+{
+  font-size: 12px;
+  line-height: 20px;
+  display: none;
+}
 .forum-type
 {
   font-size: 12px;

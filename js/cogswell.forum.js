@@ -61,6 +61,7 @@ $(document).ready(function() {
   $("#btn-forum-submit").click(function() {
     var payload = $("#form-forum-post").serializeObject();
     payload['form-forum-author'] = $.cookie("first")+" "+$.cookie("last");
+    payload['form-forum-owner'] = $.cookie("owner");
     var error = 0;
     
     // Clear the error alert
@@ -100,7 +101,7 @@ $(document).ready(function() {
       $.post(url, payload, function(data){
         if(data.response == "failure")
         {
-          $("#form-forum-error").html("<b>failed.<b>");
+          $("#form-forum-error").html("<b>Failed.<b>");
           $("#form-forum-error").visible();
         }
         else if(data.response == "success")
@@ -147,10 +148,54 @@ $(document).ready(function() {
     }
   });
 
+  // Button dynamic delete
+  $("#forum").delegate(".btn-forum-comment-del", "click", function() {
+    var post = $(this).parents(".forum-post");
+    var title = post.find(".forum-title");
+    var owner = post.find(".forum-owner");
+    var payload = {
+      owner: owner[0].innerHTML,
+      title: title[0].innerHTML
+    };
+
+    $("#form-forum-delete-title").val(title[0].innerHTML);
+    $("#form-forum-delete-owner").val(owner[0].innerHTML);
+    $("#forum-modal-delete-label").html("Post: "+title[0].innerHTML);
+    $("#forum-modal-delete").modal('show');
+  });
+
+  // Button delete submit
+  $("#btn-forum-del").click(function() {
+    var payload = $("#form-forum-delete").serializeObject();
+    
+    var url = "http://"+window.location.hostname+":8888/del.forum.post";
+    $.post(url, payload, function(data){
+      if(data.response == "failure")
+      {
+        $("#form-forum-delete-error").html("<b>Failed.<b>");
+        $("#form-forum-delete-error").visible();
+      }
+      else if(data.response == "success")
+      {
+
+        $("#form-forum-delete-error").invisible();
+        $("#form-forum-delete-error").html("<B>Delete successful!</B> redirecting...");
+        $("#form-forum-delete-error").removeClass("alert-error");
+        $("#form-forum-delete-error").addClass("alert-success");
+        $("#form-forum-delete-error").visible();
+        var redirect = function() {
+          window.location = "http://localhost:8888/forum/";
+        };
+        setTimeout(redirect, 1500);
+      }
+    });
+  });
+
   // Button comment submit
   $("#btn-forum-comment").click(function() {
     var payload = $("#form-forum-comment").serializeObject();
     payload['form-forum-comment-author'] = $.cookie("first")+" "+$.cookie("last");
+    payload['form-forum-comment-owner'] = $.cookie("owner");
     var error = 0;
 
     // Clear the error alert
@@ -226,20 +271,23 @@ $(document).ready(function() {
   {
     var titleAndType = '<div><span class="forum-title">'+post.title+'</span>'+buildType(post.type)+'</div>';
     var author =  '<div class="forum-author">By: '+post.author+' on '+formatDate(post.date)+'</div>';
+    var owner =  '<div class="forum-owner">'+post.owner+'</div>';
     var body =    '<pre>'+post.body+'</pre>';
+    var comment = '';
     var commentBtn = '<div class="btn-group"><a class="btn btn-mini btn-primary btn-forum-comment" id=""><i class="icon-comment icon-white"></i> comment</a></div>';
     var expandBtn = '<div class="btn-group"><a class="btn btn-mini btn-inverse btn-forum-comment-show" id=""><i class="icon-plus-sign icon-white"></i> show</a></div>';
+    var deleteBtn = '';
     var footer =  '<hr style="border-top: 1px dotted #b0b0b0;border-bottom: 0px">';
     var entry;
+    if(post.owner == $.cookie("owner"))
+    {
+      deleteBtn = '<div class="btn-group"><a class="btn btn-mini btn-danger btn-forum-comment-del" id=""><i class="icon-remove-sign icon-white"></i> delete</a></div>';
+    }
     if(post.comments.length > 0)
     {
-      var comment = buildComments(post.comments);
-      entry = '<div class="forum-post">'+titleAndType+author+body+commentBtn+expandBtn+comment+footer+'</div>';
+      comment = buildComments(post.comments);
     }
-    else
-    {
-      entry = '<div class="forum-post">'+titleAndType+author+body+commentBtn+footer+'</div>';
-    }
+    entry = '<div class="forum-post">'+titleAndType+author+owner+body+deleteBtn+commentBtn+expandBtn+comment+footer+'</div>';
     return entry;
   }
 
