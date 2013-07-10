@@ -82,7 +82,7 @@ $(document).ready(function() {
     }
 
     // Check to see if user is logged in
-    if($.cookie("login") == 0 || !($.cookie("first")) || !($.cookie("last")))
+    if($.cookie("login") == 0 || !($.cookie("first")) || !($.cookie("last")) || !($.cookie("owner")))
     {
       error += 1;
       $("#form-forum-error").html("<B>You must be logged-in in order to post");
@@ -135,6 +135,7 @@ $(document).ready(function() {
   // Button dynamic comment show
   $("#forum").delegate(".btn-forum-comment-show", "click", function() {
     $(this).parent().next(".forum-comments").toggle();
+
     var change = $(this).parent().find(".btn-forum-comment-show").text();
     var show = '<i class="icon-plus-sign icon-white"></i> show';
     var hide = '<i class="icon-minus-sign icon-white"></i> hide';
@@ -148,7 +149,7 @@ $(document).ready(function() {
     }
   });
 
-  // Button dynamic delete
+  // Button dynamic delete post
   $("#forum").delegate(".btn-forum-comment-del", "click", function() {
     var post = $(this).parents(".forum-post");
     var title = post.find(".forum-title");
@@ -160,8 +161,32 @@ $(document).ready(function() {
 
     $("#form-forum-delete-title").val(title[0].innerHTML);
     $("#form-forum-delete-owner").val(owner[0].innerHTML);
-    $("#forum-modal-delete-label").html("Post: "+title[0].innerHTML);
+    $("#forum-modal-delete-label").html("Post: "+title[0].innerHTML.substring(0,17)+"...");
     $("#forum-modal-delete").modal('show');
+  });
+
+  // Button dynamic delete comment
+  $("#forum").delegate(".btn-forum-comment-del-comment", "click", function() {
+    var post = $(this).parents(".forum-comment");
+    var body = post.find(".forum-body");
+    var owner = post.find(".forum-owner");
+    var parent = $(this).parents(".forum-post");
+    var pTitle = parent.find(".forum-title");
+    var pOwner = parent.find(".forum-owner");
+
+    var payload = {
+      owner: owner[0].innerHTML,
+      body: body[0].innerHTML,
+      pTitle: pTitle[0].innerHTML,
+      pOwner: pOwner[0].innerHTML
+    };
+
+    $("#form-forum-delete-comment-body").val(body[0].innerHTML);
+    $("#form-forum-delete-comment-owner").val(owner[0].innerHTML);
+    $("#form-forum-delete-parent-title").val(pTitle[0].innerHTML);
+    $("#form-forum-delete-parent-owner").val(pOwner[0].innerHTML);
+    $("#forum-modal-delete-comment-label").html("Comment: "+body[0].innerHTML.substring(0,17)+"...");
+    $("#forum-modal-delete-comment").modal('show');
   });
 
   // Button delete submit
@@ -177,12 +202,37 @@ $(document).ready(function() {
       }
       else if(data.response == "success")
       {
-
         $("#form-forum-delete-error").invisible();
         $("#form-forum-delete-error").html("<B>Delete successful!</B> redirecting...");
         $("#form-forum-delete-error").removeClass("alert-error");
         $("#form-forum-delete-error").addClass("alert-success");
         $("#form-forum-delete-error").visible();
+        var redirect = function() {
+          window.location = "http://localhost:8888/forum/";
+        };
+        setTimeout(redirect, 1500);
+      }
+    });
+  });
+
+  // Button delete comment submit
+  $("#btn-forum-del-comment").click(function() {
+    var payload = $("#form-forum-delete-comment").serializeObject();
+
+    var url = "http://"+window.location.hostname+":8888/del.forum.comment";
+    $.post(url, payload, function(data){
+      if(data.response == "failure")
+      {
+        $("#form-forum-delete-comment-error").html("<b>Failed.<b>");
+        $("#form-forum-delete-comment-error").visible();
+      }
+      else if(data.response == "success")
+      {
+        $("#form-forum-delete-comment-error").invisible();
+        $("#form-forum-delete-comment-error").html("<B>Delete successful!</B> redirecting...");
+        $("#form-forum-delete-comment-error").removeClass("alert-error");
+        $("#form-forum-delete-comment-error").addClass("alert-success");
+        $("#form-forum-delete-comment-error").visible();
         var redirect = function() {
           window.location = "http://localhost:8888/forum/";
         };
@@ -206,6 +256,13 @@ $(document).ready(function() {
     {
       error += 1;
       $("#form-forum-comment-error").append("Body");
+    }
+
+    // Check to see if user is logged in
+    if($.cookie("login") == 0 || !($.cookie("first")) || !($.cookie("last")) || !($.cookie("owner")))
+    {
+      error += 1;
+      $("#form-forum-comment-error").html("<B>You must be logged-in in order to post");
     }
 
     // If there is an error
@@ -286,8 +343,12 @@ $(document).ready(function() {
     if(post.comments.length > 0)
     {
       comment = buildComments(post.comments);
+      entry = '<div class="forum-post">'+titleAndType+author+owner+body+deleteBtn+commentBtn+expandBtn+comment+footer+'</div>';
     }
-    entry = '<div class="forum-post">'+titleAndType+author+owner+body+deleteBtn+commentBtn+expandBtn+comment+footer+'</div>';
+    else
+    {
+      entry = '<div class="forum-post">'+titleAndType+author+owner+body+deleteBtn+commentBtn+footer+'</div>';
+    }
     return entry;
   }
 
@@ -313,14 +374,23 @@ $(document).ready(function() {
   // Builds the comments
   function buildComments(data)
   {
+    var entry = '';
     var comment = '';
+    var deleteBtn = '';
     for(var i in data)
     {
       var author = '<div class="forum-author">By: '+data[i].author+' on '+formatDate(data[i].date)+'</div>';
-      var body = '<pre>'+data[i].body+'</pre>';
-      comment += author+body;
+      var owner =  '<div class="forum-owner">'+data[i].owner+'</div>';
+      var body = '<pre class="forum-body">'+data[i].body+'</pre>';
+      
+      if(data[i].owner == $.cookie("owner"))
+      {
+        deleteBtn = '<div class="btn-group"><a class="btn btn-mini btn-danger btn-forum-comment-del-comment" id=""><i class="icon-remove-sign icon-white"></i> delete</a></div>';
+      }
+      comment = author+owner+body+deleteBtn;
+      entry += '<div class="forum-comment">'+comment+'</div>';
     }
-    return '<div class="forum-comments" style="display:none">'+comment+'</div>';
+    return '<div class="forum-comments" style="display:none">'+entry+'</div>';
   }
 
   // Formats date

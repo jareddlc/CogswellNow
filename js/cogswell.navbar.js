@@ -29,7 +29,7 @@ $(document).ready(function(){
   // Button log out
   $("#btn-logout").click(function() {
     delCookies();
-    //window.location = "http://localhost:8888/";
+    $.removeCookie("owner", {path: '/'});
   });
 
   // Enables navbar features
@@ -66,15 +66,17 @@ $(document).ready(function(){
     var minutes = 60;
     date.setTime(date.getTime()+(minutes * 60 * 1000));
 
-    $.removeCookie("first");
-    $.removeCookie("last");
-    $.removeCookie("owner");
-    $.removeCookie("type");
-    $.removeCookie("email");
-    $.removeCookie("program");
-    $.cookie("login", '0', { expires: date, path: '/' });
-    $.removeCookie("login");
-    window.location = "http://localhost:8888/";
+    $.removeCookie("owner", {path: '/'});
+    $.removeCookie("first", {path: '/'});
+    $.removeCookie("last", {path: '/'});
+    $.removeCookie("type", {path: '/'});
+    $.removeCookie("email", {path: '/'});
+    $.removeCookie("program", {path: '/'});
+    $.cookie("login", '0', {expires: date, path: '/'});
+    $.removeCookie("login", {path: '/'});
+    setTimeout(function() {
+      window.location = "http://localhost:8888/";
+    }, 1000);
   }
 
   // Creates JSON array

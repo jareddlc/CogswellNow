@@ -179,6 +179,27 @@
             </div>
           </div>
 
+          <div id="forum-modal-delete-comment" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="forum-modal-delete-comment-label" aria-hidden="true">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="forum-modal-delete-comment-label">Comment: </h3>
+            </div>
+            <div class="modal-body">
+              Are you sure you want to delete the the comment?
+              <form class="form-horizontal" action="javascript:void(0);" id="form-forum-delete-comment">
+                <input type="hidden" name="form-forum-delete-comment-body" id="form-forum-delete-comment-body" value="">
+                <input type="hidden" name="form-forum-delete-comment-owner" id="form-forum-delete-comment-owner" value="">
+                <input type="hidden" name="form-forum-delete-parent-title" id="form-forum-delete-parent-title" value="">
+                <input type="hidden" name="form-forum-delete-parent-owner" id="form-forum-delete-parent-owner" value="">
+              </form>
+              <!-- Hidden DIV -->
+              <div class="alert alert-error" style="visibility: hidden;" id="form-forum-delete-comment-error"></div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" aria-hidden="true" id="btn-forum-del-comment">Submit</button>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

@@ -132,6 +132,10 @@ app.post('/del.forum.post', function (req, res, next){
   console.log('Request to: '+req.path+' from: '+req.ip);
   delForumPost(req, res);
 });
+app.post('/del.forum.comment', function (req, res, next){
+  console.log('Request to: '+req.path+' from: '+req.ip);
+  delForumComment(req, res);
+});
 app.post('/post.account', function (req, res, next){
   console.log('Request to: '+req.path+' from: '+req.ip);
   postAccount(req, res);
@@ -141,6 +145,7 @@ app.post('/post.account', function (req, res, next){
 var port = 8888;
 app.listen(port);
 console.log('Webservice started on port: '+port);
+initialSetup();
 
 //------------------------------Functions
 function createHash()
@@ -429,7 +434,32 @@ function delForumPost(req, res)
   Forum.findOne({
     title: req.body['form-forum-delete-title'],
     owner: req.body['form-forum-delete-owner'],
-  }, function (err, results){
+  }, function (err, results) {
+    if(err)
+    {
+      res.json(200, {response: "failure"});
+      console.log(err);
+    }
+    else
+    {
+      results.remove();
+      res.json(200, {response: "success"});
+      console.log("Removing post: "+results.title);
+    }
+  });
+}
+
+function delForumComment(req, res)
+{
+  Forum.update({
+    title: req.body['form-forum-delete-parent-title'],
+    owner: req.body['form-forum-delete-parent-owner']
+  },{$pull: {comments: {
+        body: req.body['form-forum-delete-comment-body'],
+        owner: req.body['form-forum-delete-comment-owner'],
+      }
+    }
+  }, function (err, affected) {
     if(err)
     {
       res.json(200, {response: "failure"});
@@ -438,29 +468,64 @@ function delForumPost(req, res)
     else
     {
       res.json(200, {response: "success"});
-      console.log("Removing post: "+results.title);
-      results.remove();
+      console.log("Removing comment from post: "+req.body['form-forum-delete-parent-title']);
     }
   });
 }
 
+function initialSetup()
+{
+  var datetime = new Date();
+  var blogBody = 'Welcome to Cogswell Now!\r\n\r\nCogswell Now is a site where students can post and have access to student websites, news, events, and forum. This site will allow students who do not have a web space to place their school related website and have it hosted by Cogswell Now! It is also a great way to stay updated with clubs and events.\r\n\r\nDirectory: A place where all the student websites will be listed.\r\n\r\nBlog: The blog is a place where the latest news is posted. ASB notices, club notices and events are updated on the blog. If you are a club leader you are allowed to post directly to the student blog.\r\n\r\nForum: The forum is a place where students can post anything from discussions, academic help, help wanted, even things for sale!\r\n\r\nHave fun!';
+  var forumBody = 'This is the student forum, where any student can post information with the option to add tags!';
+  Blog.findOne(function (err, results) {
+    if(results == null)
+    {
+      console.log('Inserting welcome blog');
+      var datetime = new Date();
+      Blog.create({
+        title:    'Cogswell Now',
+        author:   'Cogswell Now',
+        body:     blogBody,
+        owner:    'Cogswell Now',
+        date:     datetime,
+        tags:     'ALL',
+        type:     'ASB Notice'
+      }, function (err, results){
+        if(err)
+        {
+          console.log(err);
+        }
+        else
+        {
+          console.log("Blog posted: \""+results.title+"\" from: "+results.author);
+        }
+      });
+    }
+  });
+  Forum.findOne(function (err, results) {
+    if(results == null)
+    {
+      console.log('Inserting forum post');
+      Forum.create({
+        title:    'Welcome to the forum!',
+        author:   'Cogswell Now',
+        body:     forumBody,
+        owner:    'Cogswell Now',
+        date:     datetime,
+        type:     'Discussion'
+      }, function (err, results) {
+        if(err)
+        {
+          console.log(err);
+        }
+        else
+        {
+          console.log("Forum posted: \""+results.title+"\" from: "+results.author);
+        }
+      });
+        }
+  });
+}
+
 //db.users.update({email: 'jdelacruz@cogswell.edu'}, {$set: { type: 'admin'}})
-
-/*
-BLOG:
-Cogswell Now
-
-Welcome to Cogswell Now!
-
-Cogswell Now is a site where students can post and have access to student news, events, and forum. 
-
-Blog: The blog is a place where the latest news is posted. ASB notices, club notices and events are updated on the blog. If you are a club leader you are allowed to post directly to the student blog.
-Forum: The forum is a place where students can post anything from discussions, academic help, help wanted, even things for sale!
-
-Have fun!
-
-FORUM:
-Welcome to the forum!
-
-This is the student forum, where any student can post information with the option to add tags!
-*/
