@@ -1,17 +1,29 @@
 {
   "name": "CogswellNow",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Cogswell Now website",
   "main": "webservice.js",
   "dependencies": {
     "express": "~3.2.5",
-    "mongoose": "~3.6.11",
+    "mongoose": "~3.6.11"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jareddlc/CogswellNow.git"
+  },
+  "keywords": [
+    "Cogswell",
+    "Now"
+  ],
   "author": "Jared De La Cruz",
-  "license": "BSD"
+  "license": "BSD",
+  "gitHead": "314523ca07d5e65ceca0b8a006676555c4322c56",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/jareddlc/CogswellNow/issues"
+  }
 }
