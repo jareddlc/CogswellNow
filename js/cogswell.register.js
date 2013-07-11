@@ -56,7 +56,7 @@ $(document).ready(function(){
       var payload = $("#form-register").serializeObject();
 
       // POST JSON
-      var url = "http://"+window.location.hostname+":8888/post.user";
+      var url = "http://"+window.location.hostname+"/post.user";
       $.post(url, payload, function(data){
         if(data.response == "failure")
         {
@@ -71,7 +71,7 @@ $(document).ready(function(){
           $("#form-register-error").addClass("alert-success");
           $("#form-register-error").visible();
           var redirect = function() {
-            window.location = "http://localhost:8888/";
+            window.location = "/";
           }
           setTimeout(redirect, 1500);
         }

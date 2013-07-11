@@ -97,7 +97,7 @@ $(document).ready(function() {
     else
     {
       $("#form-forum-error").invisible();
-      var url = "http://"+window.location.hostname+":8888/post.forum.post";
+      var url = "http://"+window.location.hostname+"/post.forum.post";
       $.post(url, payload, function(data){
         if(data.response == "failure")
         {
@@ -112,7 +112,7 @@ $(document).ready(function() {
           $("#form-forum-error").addClass("alert-success");
           $("#form-forum-error").visible();
           var redirect = function() {
-            window.location = "http://localhost:8888/forum/";
+            window.location = "/forum/";
           };
           setTimeout(redirect, 1500);
         }
@@ -193,7 +193,7 @@ $(document).ready(function() {
   $("#btn-forum-del").click(function() {
     var payload = $("#form-forum-delete").serializeObject();
     
-    var url = "http://"+window.location.hostname+":8888/del.forum.post";
+    var url = "http://"+window.location.hostname+"/del.forum.post";
     $.post(url, payload, function(data){
       if(data.response == "failure")
       {
@@ -208,7 +208,7 @@ $(document).ready(function() {
         $("#form-forum-delete-error").addClass("alert-success");
         $("#form-forum-delete-error").visible();
         var redirect = function() {
-          window.location = "http://localhost:8888/forum/";
+          window.location = "/forum/";
         };
         setTimeout(redirect, 1500);
       }
@@ -219,7 +219,7 @@ $(document).ready(function() {
   $("#btn-forum-del-comment").click(function() {
     var payload = $("#form-forum-delete-comment").serializeObject();
 
-    var url = "http://"+window.location.hostname+":8888/del.forum.comment";
+    var url = "http://"+window.location.hostname+"/del.forum.comment";
     $.post(url, payload, function(data){
       if(data.response == "failure")
       {
@@ -234,7 +234,7 @@ $(document).ready(function() {
         $("#form-forum-delete-comment-error").addClass("alert-success");
         $("#form-forum-delete-comment-error").visible();
         var redirect = function() {
-          window.location = "http://localhost:8888/forum/";
+          window.location = "/forum/";
         };
         setTimeout(redirect, 1500);
       }
@@ -274,7 +274,7 @@ $(document).ready(function() {
     else
     {
       $("#form-forum-comment-error").invisible();
-      var url = "http://"+window.location.hostname+":8888/post.forum.comment";
+      var url = "http://"+window.location.hostname+"/post.forum.comment";
       $.post(url, payload, function(data){
         if(data.response == "failure")
         {
@@ -288,7 +288,7 @@ $(document).ready(function() {
           $("#form-forum-comment-error").addClass("alert-success");
           $("#form-forum-comment-error").visible();
           var redirect = function() {
-            window.location = "http://localhost:8888/forum/";
+            window.location = "/forum/";
           };
           setTimeout(redirect, 1500);
         }
@@ -300,7 +300,7 @@ $(document).ready(function() {
   function loadforum()
   {
     var page = {page: $.cookie("page-forum")};
-    var url = "http://"+window.location.hostname+":8888/get.forum";
+    var url = "http://"+window.location.hostname+"/get.forum";
     $.get(url, page, function(data){
       $("#forum").html("");
       for(var i in data)
@@ -317,7 +317,7 @@ $(document).ready(function() {
     var minutes = 60;
     date.setTime(date.getTime()+(minutes * 60 * 1000));
 
-    var url = "http://"+window.location.hostname+":8888/get.forum.count";
+    var url = "http://"+window.location.hostname+"/get.forum.count";
     $.get(url, function(data){
       $.cookie("forum-count", data.count, {expires: date, path: '/'});
     }, "json");

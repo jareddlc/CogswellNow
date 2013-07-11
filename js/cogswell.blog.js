@@ -61,7 +61,7 @@ $(document).ready(function(){
   function loadBlog()
   {
     var page = {page: $.cookie("page-blog")};
-    var url = "http://"+window.location.hostname+":8888/get.blog";
+    var url = "http://"+window.location.hostname+"/get.blog";
     $.get(url, page, function(data){
       $("#blog").html("");
       for(var i in data)
@@ -78,7 +78,7 @@ $(document).ready(function(){
     var minutes = 60;
     date.setTime(date.getTime()+(minutes * 60 * 1000));
 
-    var url = "http://"+window.location.hostname+":8888/get.blog.count";
+    var url = "http://"+window.location.hostname+"/get.blog.count";
     $.get(url, function(data){
       $.cookie("blog-count", data.count, {expires: date, path: '/'});
     });

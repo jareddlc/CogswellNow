@@ -41,7 +41,7 @@ $(document).ready(function(){
     else
     {
       $("#form-blog-post-error").invisible();
-      var url = "http://"+window.location.hostname+":8888/post.blog.post";
+      var url = "http://"+window.location.hostname+"/post.blog.post";
       $.post(url, payload, function(data){
         if(data.response == "failure")
         {
@@ -56,7 +56,7 @@ $(document).ready(function(){
           $("#form-blog-post-error").addClass("alert-success");
           $("#form-blog-post-error").visible();
           var redirect = function() {
-            window.location = "http://localhost:8888/";
+            window.location = "/";
           }
           setTimeout(redirect, 1500);
         }

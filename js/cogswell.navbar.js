@@ -12,7 +12,7 @@ $(document).ready(function(){
   $("#btn-signin").click(function() {
     var payload = $("#form-signin").serializeObject();
 
-    var url = "http://"+window.location.hostname+":8888/post.login";
+    var url = "http://"+window.location.hostname+"/post.login";
     $.post(url, payload, function(data){
       if(data.response == "failure")
       {
@@ -75,7 +75,7 @@ $(document).ready(function(){
     $.cookie("login", '0', {expires: date, path: '/'});
     $.removeCookie("login", {path: '/'});
     setTimeout(function() {
-      window.location = "http://localhost:8888/";
+      window.location = "/";
     }, 1000);
   }
 

@@ -142,7 +142,7 @@ app.post('/post.account', function (req, res, next){
 });
 
 //---Start listening
-var port = 8888;
+var port = 80;
 app.listen(port);
 console.log('Webservice started on port: '+port);
 initialSetup();

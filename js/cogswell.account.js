@@ -1,7 +1,7 @@
 $(document).ready(function(){
   var payload = {email: $.cookie("email")};
 
-  var url = "http://"+window.location.hostname+":8888/get.account";
+  var url = "http://"+window.location.hostname+"/get.account";
   $.get(url, payload, function(data){
     // Update form
     $("#form-account-fname").val(data.first);
@@ -16,7 +16,7 @@ $(document).ready(function(){
     var payload = $("#form-account").serializeObject();
     payload['form-account-email'] = $.cookie("email");
 
-    var url = "http://"+window.location.hostname+":8888/post.account";
+    var url = "http://"+window.location.hostname+"/post.account";
     $.post(url, payload, function(data){
       if(data.response == "failure")
       {
@@ -35,7 +35,7 @@ $(document).ready(function(){
         $("#form-account-error").addClass("alert-success");
         $("#form-account-error").visible();
         var redirect = function() {
-          window.location = "http://localhost:8888/";
+          window.location = "/";
         }
         setTimeout(redirect, 1500);
         }
