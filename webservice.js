@@ -74,7 +74,7 @@ app.configure(function() {
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.set("trust proxy", true);
-  app.use(express.favicon('C:\\xampp\\htdocs\\xampp\\favicon.ico'));
+  app.use(express.favicon(__dirname+'/favicon.ico'));
   app.use(express.compress());
   app.use(express.bodyParser());
   app.use(express.cookieParser());
