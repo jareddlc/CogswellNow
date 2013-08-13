@@ -118,4 +118,6 @@ $(document).ready(function(){
     d = new Date(ISODate);
     return d.toLocaleString();
   }
+
+  updateButtons();
 });

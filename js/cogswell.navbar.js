@@ -22,6 +22,7 @@ $(document).ready(function(){
       {
         setCookies(data);
         setNavbar(data.first, data.last);
+        location.reload(true);
       }
     },"json");
   });
