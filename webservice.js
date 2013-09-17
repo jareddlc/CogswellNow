@@ -6,7 +6,12 @@
 //---MongoDB
 console.log('Initializing MongoDB...');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/cogswell');
+//mongoose.connect('mongodb://localhost/cogswell');
+var options = {
+  user: 'nodejitsu',
+  pass: '4886906eccf5fd8012c3c8486691a8b1'
+};
+mongoose.connect('mongodb://nodejitsu:4886906eccf5fd8012c3c8486691a8b1@paulo.mongohq.com:10073/nodejitsudb2829246723', options);
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
