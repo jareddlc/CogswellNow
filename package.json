@@ -1,6 +1,6 @@
 {
   "name": "CogswellNow",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Cogswell Now website",
   "main": "webservice.js",
   "dependencies": {
