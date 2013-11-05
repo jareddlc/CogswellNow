@@ -6459,6 +6459,12 @@ button.close {
   background-color: #3a87ad;
 }
 
+.aboutme-row {
+  margin-left: 0px;
+  margin-right: 0px;
+  min-height: 120px;
+}
+
 @media (max-width: 767px) {
   .hero-unit {
     padding: 15px;
